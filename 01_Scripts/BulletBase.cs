@@ -1,28 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//自需要负责方向和伤害和移动
 public class BulletBase : MonoBehaviour
 {
-    float moveSpeed = 5;
-    public Vector3 direction;
+    float moveSpeed = 5;//移动
+    public Vector3 direction;//方向
     public GameObject expolosion;
-    public float Damage;
+    public  float Damage;//伤害
     // Start is called before the first frame update
     void Start()
     {
-        transform.right = direction.normalized;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(direction != null)
+
         Shoot();
     }
 
-    public void Shoot(){
-        transform.position += direction * moveSpeed * Time.deltaTime;
+    public virtual void Shoot(){
+        if(direction != null){
+            transform.right = direction.normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
