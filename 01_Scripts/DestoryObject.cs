@@ -8,12 +8,20 @@ public class DestoryObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject,lifeTime);
+        //Destroy(gameObject,lifeTime);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(gameObject.activeSelf)
+        {
+            StartCoroutine(de());
+        }
+    }
+    IEnumerator de(){
+        yield return new WaitForSeconds(lifeTime);
+        ObjectPool.Instance.PushObject(gameObject);
     }
 }

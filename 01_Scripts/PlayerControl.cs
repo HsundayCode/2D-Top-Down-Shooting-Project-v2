@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody2D rig2d;
     private Animator ani;
     private float hx,vy;
+    public float Forcetime;
     public float moveSpeed;
     public float maxHp;
     float hp;
@@ -38,6 +39,11 @@ public class PlayerControl : MonoBehaviour
         {
             move(false,mosePos);
         }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Dash();
+        }
         
     }
 
@@ -65,5 +71,17 @@ public class PlayerControl : MonoBehaviour
             Debug.Log(hp);
         }
         
+    }
+
+    public void Dash()
+    {
+        rig2d.velocity = transform.right.normalized * 30;
+
+    }
+
+    IEnumerator removeForce(float Forcetime)
+    {
+        yield return new WaitForSeconds(Forcetime);
+        rig2d.velocity = Vector3.zero;
     }
 }

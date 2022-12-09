@@ -17,6 +17,7 @@ public class MuzzleBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //摄像机可能会导致角度问题
         direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
     }
@@ -27,7 +28,8 @@ public class MuzzleBase : MonoBehaviour
         float miden = BulletNum / 2;//判断角度是负的还是正
         for(int i =0;i<BulletNum;i++)
         {
-            GameObject bullet = Instantiate(bulletType);
+            //GameObject bullet = Instantiate(bulletType);
+            GameObject bullet = ObjectPool.Instance.GetObject(bulletType);
             bullet.transform.position = transform.position;
             bullet.GetComponent<BulletBase>().direction = Quaternion.AngleAxis((i-miden) * Deflectionangle,Vector3.forward) * direction;
         }

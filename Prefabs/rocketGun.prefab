@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletNum: 3
-  Deflectionangle: 2
+  Deflectionangle: 25
   bulletType: {fileID: 3768631227087736974, guid: a1ac7cd73ddf91348832c28fa7204ced, type: 3}
   direction: {x: 0, y: 0, z: 0}
 --- !u!1 &4514285532203843632
@@ -169,3 +169,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bullet: {fileID: 3768631227087736974, guid: a1ac7cd73ddf91348832c28fa7204ced, type: 3}
   shootTime: 1
+  interval: 0

@@ -23,7 +23,7 @@ public class BulletBase : MonoBehaviour
 
     public virtual void Shoot(){
         if(direction != null){
-            transform.right = direction.normalized;
+            //transform.right = direction.normalized;
             transform.position += direction * moveSpeed * Time.deltaTime;
         }
         
@@ -32,8 +32,12 @@ public class BulletBase : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag != "Player")
         {
-            Destroy(gameObject);
-            Instantiate(expolosion,transform.position,Quaternion.identity);
+            //Destroy(gameObject);
+            ObjectPool.Instance.PushObject(gameObject);
+            //Instantiate(expolosion,transform.position,Quaternion.identity);
+            GameObject ex = ObjectPool.Instance.GetObject(expolosion);
+            ex.transform.position = transform.position;
+            
         }
         
     }

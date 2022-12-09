@@ -6,11 +6,12 @@ public class FloorGun : MonoBehaviour
 {
     public GameObject gunPrefab;
     GunBag gunBag;
+    SpriteRenderer gunSprite;
     // Start is called before the first frame update
     void Start()
     {
         gunBag = GameObject.FindGameObjectWithTag("Gunbag").GetComponent<GunBag>();
-        
+        gunSprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -20,10 +21,19 @@ public class FloorGun : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" && gunBag.gunBag.Count < 3)
         {
             gunBag.addGun(gunPrefab);
+            GameObject.FindGameObjectWithTag("GunUI").GetComponent<GunUI>().setImage(gunSprite);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if(other.gameObject.tag == "Player" && gunBag.gunBag.Count >= 3)
+        {
+            gunBag.replaceCurrentGun(gunPrefab,gunSprite,gameObject);
+        }
     }
 }

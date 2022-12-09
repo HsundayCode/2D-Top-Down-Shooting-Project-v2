@@ -12,7 +12,7 @@ public class GunBase : MonoBehaviour
     Vector3 mosePos;
 
     public float shootTime;
-    float interval = 0;
+    public float interval = 0;
     // Start is called before the first frame update
     void Start()
     {

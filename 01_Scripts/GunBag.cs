@@ -35,16 +35,16 @@ public class GunBag : MonoBehaviour
             SwitchGun();
         }
     }
-    //切枪
+    //切枪  子弹cd完了才允许切换
     void SwitchGun()
     {
-        if(currentGunIndex == 3 )
+        if(currentGunIndex == 3 && gunBag[currentGunIndex].GetComponent<GunBase>().interval <= 0 )
         {
             gunBag[currentGunIndex].SetActive(false);//当前
             currentGunIndex = 1;
             gunBag[currentGunIndex].SetActive(true);//之后
             
-        }else if(currentGunIndex < 3)
+        }else if(currentGunIndex < 3 && gunBag[currentGunIndex].GetComponent<GunBase>().interval <= 0)
         {
             gunBag[currentGunIndex].SetActive(false);
             currentGunIndex += 1;
@@ -65,31 +65,43 @@ public class GunBag : MonoBehaviour
                 //gunBag[1].SetActive(true);
             }else
             {
-                ;
+                
                 gun.SetActive(false);
                 gunBag.Add(gunBag.Count+1,gun);
                 
             }
-        }else{
-            replaceCurrentGun(gun);
         }
         
     }
     //捡多了替换
-    void replaceCurrentGun(GameObject gun)
+    public void replaceCurrentGun(GameObject gunPrefab,SpriteRenderer gunSprite,GameObject gunfloor)
     {
         
+         
         if(Input.GetKeyDown(KeyCode.I))
         {
-            gunBag[0] = gun;
+            var gun = Instantiate(gunPrefab,transform);
+            Destroy(gunBag[1]);
+            gunBag[1] = gun;
+            GameObject.FindGameObjectWithTag("GunUI").GetComponent<GunUI>().setImage1(gunSprite);
+            Destroy(gunfloor);
+            
             
         }else if(Input.GetKeyDown(KeyCode.O))
         {
-            gunBag[1] = gun;
+            var gun = Instantiate(gunPrefab,transform);
+            Destroy(gunBag[2]);
+            gunBag[2] = gun;
+            GameObject.FindGameObjectWithTag("GunUI").GetComponent<GunUI>().setImage2(gunSprite);
+            Destroy(gunfloor);
             
         }else if(Input.GetKeyDown(KeyCode.P))
         {
-            gunBag[2] = gun;
+            var gun = Instantiate(gunPrefab,transform);
+            Destroy(gunBag[3]);
+            gunBag[3] = gun;
+            GameObject.FindGameObjectWithTag("GunUI").GetComponent<GunUI>().setImage3(gunSprite);
+            Destroy(gunfloor);
             
         }
         
